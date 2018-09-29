@@ -1,0 +1,36 @@
+{
+  "name": "web-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "export NODE_ENV=development && nodemon app.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/violetta-voloshina/web-project.git"
+  },
+  "author": "Veta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/violetta-voloshina/web-project/issues"
+  },
+  "homepage": "https://github.com/violetta-voloshina/web-project#readme",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "conform": "0.2.16",
+    "deep-conf": "0.1.6",
+    "express": "^4.16.3",
+    "moment": "2.22.2",
+    "mongodb": "2.2.31",
+    "mongodb-uri": "0.9.7",
+    "mongodbext": "2.2.4",
+    "nodemon": "1.18.4",
+    "os": "0.1.1",
+    "path": "0.12.7",
+    "pug": "2.0.3",
+    "serve-static": "1.13.2",
+    "underscore": "1.9.1"
+  }
+}
