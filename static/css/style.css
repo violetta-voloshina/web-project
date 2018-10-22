@@ -1,9 +1,19 @@
 .form-signin {
-	padding: 20px;
+	padding: 5px;
 	margin: 25px 20px 0px;
 	border-style: groove;
 	border-width: medium;
 }
-.form-pad {
-	padding: 40px;
+.form-menu {
+	padding: 25px;
+	margin-right: 20;
+	margin-left: 20;
+	max-width: medium;
+}
+.form-border{
+	padding: 0;
+	margin-right: 10;
+	margin-left: 10;
+	margin-top: 15;
+	max-width: 1267px;
 }

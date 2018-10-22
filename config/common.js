@@ -16,18 +16,18 @@ configBuilder.register({
 			}),
 			host: '127.0.0.1',
 			port: 27017,
-			database: 'chat'
+			database: 'photo-studio'
 		},
 		defaultLimit: 20,
 		path: {
-			data: (config, name) => `/var/tmp/instapic-${name}`,
+			data: (config, name) => `/var/tmp/photo-${name}`,
 			uploads: (config) => path.join(
 				config.path.data,
 				'uploads'
 			),
 			uploadsTmp: (config, name) => path.join(
 				os.tmpdir(),
-				`instapic-${name}-uploadsTmp`
+				`photo-${name}-uploadsTmp`
 			)
 		}
 	}

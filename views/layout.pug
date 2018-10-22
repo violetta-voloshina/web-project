@@ -20,17 +20,18 @@ html
 					li.nav-item.dropdown
 						a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Товары
 						.dropdown-menu(aria-labelledby='navbarDropdown')
-							a.dropdown-item(href='#') Рамки
+							a.dropdown-item(href='/frames') Рамки
 							a.dropdown-item(href='#') Альбомы
 							a.dropdown-item(href='#') Диски
 							a.dropdown-item(href='#') Наушники
 							.dropdown-divider
-							a.dropdown-item(href='#') Something else here
+							a.dropdown-item(href='/goods') Все товары
+					li.nav-item
+						a.nav-link(href='/service') Услуги
 					li.nav-item
 						form.form-inline.my-2.my-lg-0
 							input.form-control.mr-sm-2(type='search', placeholder='Поиск', aria-label='Search')
 							button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Найти
 				a.nav-link(href='/signin') Авторизоваться
-		.container
-			
+		.container.form-border
 					block body
