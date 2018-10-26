@@ -6,6 +6,8 @@ const config = require('./config')();
 const logger = require('./utils/logger.js');
 
 async function init() {
+	await require('./pathsBootstrap')();
+
 	const app = express();
 
 	require('./utils/express/async')(app);

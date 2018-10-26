@@ -22,15 +22,19 @@
     "conform": "0.2.16",
     "deep-conf": "0.1.6",
     "express": "^4.16.3",
+    "mkdirp": "^0.5.1",
     "moment": "2.22.2",
     "mongodb": "2.2.31",
     "mongodb-uri": "0.9.7",
     "mongodbext": "2.2.4",
+    "multer": "^1.4.1",
+    "multipipe": "^2.0.3",
     "nodemon": "1.18.4",
     "os": "0.1.1",
     "path": "0.12.7",
     "pug": "2.0.3",
     "serve-static": "1.13.2",
-    "underscore": "1.9.1"
+    "underscore": "1.9.1",
+    "util": "^0.11.0"
   }
 }

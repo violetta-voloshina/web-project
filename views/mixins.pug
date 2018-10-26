@@ -1,0 +1,32 @@
+mixin renderGood(good)
+	case good.type
+		when 'frame': +renderFrame(good.frame)
+		when 'album': +renderAlbum(good.album)
+		when 'headphone': +renderHeadphone(good.headphone)
+		when 'batterie': +renderBatterie(good.batterie)
+		when 'cord': +renderCord(good.cord)
+		when 'mouse': +renderMouse(good.mouse)
+		when 'disk': +renderDisk(good.disk)
+
+mixin renderFrame(frame)
+	.form-lines
+		p.text-muted= `Размер - ${frame.size.width} x ${frame.size.heigth} см`
+		p.text-muted= `Материал - ${frame.material}`
+mixin renderAlbum(album)
+	p что за херня
+mixin renderHeadphone(headphone)
+	.form-lines
+		p.text-muted= `Микрофон - ${headphone.microphone? 'присутствует':'отсутствует'}`
+		p.text-muted= `Доп. амбушюры - ${headphone.spareCushions? 'присутствуют':'отсутствуют'}`
+		p.text-muted= `Основной цвет - ${headphone.color}`
+		p.text-muted= `Чуствительность- ${headphone.sensitivity} Дб`
+		p.text-muted= `Производитель - ${headphone.manufacturer}`
+mixin renderBatterie(batterie)
+	p что за херня
+mixin renderCord(cord)
+	p что за херня
+mixin renderMouse(mouse)
+	p что за херня
+mixin renderDisk(disk)
+	p что за херня
+

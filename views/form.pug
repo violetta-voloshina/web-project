@@ -1,19 +1,79 @@
 extends layout
 
-block params
-	- headTitle = 'Вход'
-
-
 block body
-	form.form-signin
-		.form-group
-			label(for='exampleInputEmail1') Электронная почта
-			input#email.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
-			small.form-text.text-muted Мы его никому не передадим.
-		.form-group
-			label(for='exampleInputPassword1') Пароль
-			input#inputPassword.form-control(type='password', placeholder='Password')
-		.form-group.form-check
-			input#check.form-check-input(type='checkbox')
-			label.form-check-label(for='exampleCheck1') Подтвердить
-		button.btn.btn-primary(type='submit') Отправить
+	.row
+		.col-md-8.offset-md-2
+			form#good(
+				method="post"
+				enctype="multipart/form-data"
+			)
+				.form-group
+					label(for="image") Изображение
+					input#image.form-control-file.js-form-input-img(type="file" name="image")
+				.media.mb-3
+					img.js-form-preview-img.mr-3(
+						class=img ? "" : "d-none"
+						src=img ? `/uploads/${img.name}` : ""
+						width="150"
+						alt="img"
+					)
+					.media-body
+						.form-group
+							label(for="text") Название товара
+							input#name.form-control(
+								type="text"
+								name="name"
+								placeholder="Название товара"
+								required
+								minlength=5
+								maxlength=50
+							)
+						.form-group
+							label(for="text") Описание товара
+							input#description.form-control(
+								type="text"
+								name="description"
+								placeholder="Описание товара"
+								minlength=1
+								maxlength=50
+							)
+						.form-group
+							label(for="width") Ширина рамки
+							input#width.form-control(
+								type="number"
+								name="width"
+								placeholder="Ширина рамки"
+								required
+								min=2
+								max=60
+							)
+						.form-group
+							label(for="text") Высота рамки
+							input#heigth.form-control(
+								type="number"
+								name="heigth"
+								placeholder="Высота рамки"
+								required
+								min=2
+								max=60
+							)
+						.form-group
+							label(for="text") Материал
+							input#material.form-control(
+								type="text"
+								name="material"
+								placeholder="Материал"
+								minlength=3
+								maxlength=10
+							)
+				.d-flex.justify-content-between
+					a.btn.btn-danger(href="/")
+						.d-none.d-sm-block
+							text Вернуться
+						.d-block.d-sm-none
+							i.icon.ion-ios-undo
+					button#formSubmit.btn.btn-success(type="button")
+						.d-none.d-sm-block
+							text Добавить товар
+						.d-block.d-sm-none
+							i.icon.ion-social-instagram

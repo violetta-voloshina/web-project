@@ -1,0 +1,19 @@
+extends layout
+
+block params
+	- headTitle = 'Вход'
+
+
+block body
+	form.form-signin
+		.form-group
+			label(for='exampleInputEmail1') Электронная почта
+			input#email.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
+			small.form-text.text-muted Мы его никому не передадим.
+		.form-group
+			label(for='exampleInputPassword1') Пароль
+			input#inputPassword.form-control(type='password', placeholder='Password')
+		.form-group.form-check
+			input#check.form-check-input(type='checkbox')
+			label.form-check-label(for='exampleCheck1') Подтвердить
+		button.btn.btn-primary(type='submit') Отправить

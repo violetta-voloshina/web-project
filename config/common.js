@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const mongodbUri = require('mongodb-uri');
 const os = require('os');
 const path = require('path');
@@ -29,6 +30,7 @@ configBuilder.register({
 				os.tmpdir(),
 				`photo-${name}-uploadsTmp`
 			)
-		}
+		},
+		allowedAttachmentMimeTypes: _(['jpeg', 'jpg', 'png']).map((type) => `image/${type}`)
 	}
 });
