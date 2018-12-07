@@ -1,11 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-	Input, FormGroup, Label, FormText
-} = require('reactstrap');
-const {
-	Checkbox
-} = require('react-bootstrap');
+const {Input, FormGroup, Label, FormText} = require('reactstrap');
+const {Checkbox} = require('react-bootstrap');
 
 class HeadphoneForm extends React.Component {
 	static propTypes = {
@@ -15,17 +11,12 @@ class HeadphoneForm extends React.Component {
 	}
 
 	static defaultProps = {
-		values: {
-			sensitivity: 80
-		},
+		values: {},
 		errors: {}
 	}
 
 	onCushionsChange = () => {
-		this.props.onChange(
-			'spareCushions',
-			!this.props.values.spareCushions
-		);
+		this.props.onChange('spareCushions', !this.props.values.spareCushions);
 	}
 
 	onMicrophoneChange= () => {
@@ -49,13 +40,13 @@ class HeadphoneForm extends React.Component {
 
 	render() {
 		const {values, errors} = this.props;
-		console.log(values);
+
 		return (
 			<React.Fragment>
 				<FormGroup error={errors.spareCushions}>
 					<Label>Наличие доп. амбюшур</Label>
 					<Checkbox
-						checked={values.spareCushions}
+						checked={values.spareCushions || ''}
 						name='spareCushions'
 						onChange={this.onCushionsChange}
 					>
@@ -65,7 +56,7 @@ class HeadphoneForm extends React.Component {
 				<FormGroup error={errors.microphone}>
 					<Label>Наличие микрофона</Label>
 					<Checkbox
-						checked={values.microphone}
+						checked={values.microphone || ''}
 						name='microphone'
 						onChange={this.onMicrophoneChange}
 					>
@@ -78,7 +69,7 @@ class HeadphoneForm extends React.Component {
 						type="text"
 						name="color"
 						placeholder="Основной цвет"
-						value={values.color}
+						value={values.color || ''}
 						onChange={this.onColorChange}
 					/>
 				</FormGroup>
@@ -90,11 +81,11 @@ class HeadphoneForm extends React.Component {
 						name="sensitivity"
 						max="300"
 						min="80"
-						value={values.sensitivity}
+						value={values.sensitivity || ''}
 						onChange={this.onSensitivityChange}
 					/>
 					<FormText color="muted">
-						Значение не должно быть больше 300 и меньше 80
+						Значение должно быть больше 80 и меньше 300
 					</FormText>
 				</FormGroup>
 

@@ -12,12 +12,7 @@ class FrameForm extends React.Component {
 	}
 
 	static defaultProps = {
-		values: {
-			size: {
-				width: 2,
-				height: 2
-			}
-		},
+		values: {},
 		errors: {}
 	}
 
@@ -41,7 +36,8 @@ class FrameForm extends React.Component {
 
 	render() {
 		const {values, errors} = this.props;
-		// console.log(values);
+		const {size, material} = values;
+
 		return (
 			<React.Fragment>
 				<FormGroup error={errors.size && errors.size.height}>
@@ -49,12 +45,10 @@ class FrameForm extends React.Component {
 					<Input
 						bsSize="lg"
 						name="height"
-						// max={60}
-						// min={2}
 						type="number"
 						placeholder="Высота рамки"
 						step="1"
-						value={values.size.height}
+						value={size && size.height || ''}
 						onChange={this.onHeightChange}
 					/>
 				</FormGroup>
@@ -64,11 +58,10 @@ class FrameForm extends React.Component {
 					<Input
 						bsSize="lg"
 						name="width"
-						// max={60}
-						// min={2}
 						type="number"
+						placeholder="Ширина рамки"
 						step="1"
-						value={values.size.width}
+						value={size && size.width || ''}
 						onChange={this.onWidthChange}
 					/>
 				</FormGroup>
@@ -80,7 +73,7 @@ class FrameForm extends React.Component {
 						name="material"
 						type="text"
 						placeholder="Тип материала"
-						value={values.material}
+						value={material || ''}
 						onChange={this.onMaterialChange}
 					/>
 				</FormGroup>

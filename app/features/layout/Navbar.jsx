@@ -17,7 +17,7 @@ function NavbarWrapper() {
 			collapseOnSelect
 			style={{
 				display: 'flex',
-				justifyContent: 'flex-end',
+				justifyContent: 'space-between',
 				alignItems: 'center'
 			}}
 		>
@@ -26,8 +26,6 @@ function NavbarWrapper() {
 					<a href="/">PhotoStudio</a>
 				</Navbar.Brand>
 				<Navbar.Toggle />
-			</Navbar.Header>
-			<Navbar.Collapse>
 				<Nav>
 					<NavDropdown eventKey={3} title="Товары" id="basic-nav-dropdown">
 						<MenuItem eventKey={3.1}>Рамки</MenuItem>
@@ -39,19 +37,19 @@ function NavbarWrapper() {
 						Услуги
 					</NavItem>
 				</Nav>
-				<Nav pullRight style={{display: 'flex'}}>
-					<Navbar.Form pullLeft>
-						<FormGroup>
-							<FormControl type="text" placeholder="Search" />
-						</FormGroup>
-						<Button bsStyle="primary" bsSize="default">
-							Поиск
-						</Button>
-						<Button bsStyle="primary" bsSize="default" style={{marginLeft: 10}}>
-							Войти
-						</Button>
-					</Navbar.Form>
-				</Nav>
+			</Navbar.Header>
+			<Navbar.Collapse>
+				<Navbar.Form pullLeft>
+					<FormGroup>
+						<FormControl type="text" placeholder="Search" />
+					</FormGroup>
+					<Button bsStyle="primary">
+						Поиск
+					</Button>
+					<Button bsStyle="primary" style={{marginLeft: 10}}>
+						Войти
+					</Button>
+				</Navbar.Form>
 			</Navbar.Collapse>
 		</Navbar>
 	);

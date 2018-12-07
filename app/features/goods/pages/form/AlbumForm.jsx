@@ -12,25 +12,20 @@ class AlbumForm extends React.Component {
 	}
 
 	static defaultProps = {
-		values: {
-			sizePhoto: {
-				width: 2,
-				height: 2
-			}
-		},
+		values: {},
 		errors: {}
 	}
 
 	onWidthChange = ({target}) => {
 		this.props.onChange('sizePhoto', {
-			...this.props.values.size,
+			...this.props.values.sizePhoto,
 			width: Number(target.value)
 		});
 	};
 
 	onHeightChange = ({target}) => {
 		this.props.onChange('sizePhoto', {
-			...this.props.values.size,
+			...this.props.values.sizePhoto,
 			height: Number(target.value)
 		});
 	}
@@ -45,6 +40,7 @@ class AlbumForm extends React.Component {
 
 	render() {
 		const {values, errors} = this.props;
+		const {sizePhoto} = values;
 
 		return (
 			<React.Fragment>
@@ -55,7 +51,7 @@ class AlbumForm extends React.Component {
 						name="height"
 						max={60}
 						min={2}
-						value={values.sizePhoto.height}
+						value={sizePhoto && sizePhoto.height || ''}
 						onChange={this.onHeightChange}
 					/>
 				</FormGroup>
@@ -67,7 +63,7 @@ class AlbumForm extends React.Component {
 						name="width"
 						max="60"
 						min="2"
-						value={values.sizePhoto.width}
+						value={sizePhoto && sizePhoto.width || ''}
 						onChange={this.onWidthChange}
 					/>
 				</FormGroup>
@@ -79,7 +75,7 @@ class AlbumForm extends React.Component {
 						name="typeSheet"
 						placeholder="Тип материала"
 						value={values.typeSheet}
-						Change={this.ontypeSheetChange}
+						onChange={this.ontypeSheetChange}
 					/>
 				</FormGroup>
 
