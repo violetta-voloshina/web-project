@@ -5,7 +5,7 @@ const makeTestParams = (baseConfig, testNumber) => ({
 		port: baseConfig.listen.port + testNumber
 	},
 	mongodb: {
-		database: `chatWeb${testNumber}`
+		database: `photo-studio${testNumber}`
 	}
 });
 

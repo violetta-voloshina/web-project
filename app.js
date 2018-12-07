@@ -1,25 +1,39 @@
 const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
-const _ = require('underscore');
+const cookieParser = require('cookie-parser');
 const serveStatic = require('serve-static');
+const logger = require('./utils/logger');
 const config = require('./config')();
-const logger = require('./utils/logger.js');
+const _ = require('underscore');
 
 async function init() {
+	await require('./pathsBootstrap')();
+
 	const app = express();
+
+	const server = http.Server(app);
 
 	require('./utils/express/async')(app);
 
 	app.set('views', './views');
 	app.set('view engine', 'pug');
+	app.locals = require('./views/helpers');
 
 	app.use(bodyParser.json());
-	app.use('/uploads', serveStatic(config.path.uploads));
+
+	app.use(cookieParser('1ea87c9bd1ef415eaf11599cce75836f', {
+		path: '/',
+		httpOnly: true,
+		maxAge: null
+	}));
+
 	app.use('/static', serveStatic('./static'));
+	app.use('/uploads', serveStatic(config.paths.uploads));
 	await require('./db').init();
 	require('./routes')(app);
 
-	app.listen(config.listen.port, config.listen.host);
+	server.listen(config.listen.port);
 	logger(`Server started on ${config.listen.host}:${config.listen.port}`);
 
 	app.use((err, req, res, next) => {

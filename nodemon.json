@@ -2,9 +2,10 @@
   "ignoreRoot": [
     ".git",
     "test",
-    "node_modules"
+    "node_modules",
+    "scripts"
   ],
   "ignore": [],
-  "ext": "js,pug,json",
+  "ext": "js,pug,jsx",
   "watch": "./"
 }

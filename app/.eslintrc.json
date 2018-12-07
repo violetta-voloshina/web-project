@@ -1,0 +1,6 @@
+{
+	"extends": "dvpnt-react",
+	"globals": {
+		"FileReader": true
+	}
+}

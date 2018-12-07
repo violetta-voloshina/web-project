@@ -3,6 +3,8 @@ const {MongoClient} = require('mongodb');
 const config = require('../config')();
 
 const collections = [
+	'goods',
+	'services'
 ];
 
 let initialized = false;
