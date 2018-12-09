@@ -10,11 +10,13 @@ const {uploadImage} = require('app/utils/uploads');
 const FrameForm = require('./FrameForm');
 const AlbumForm = require('./AlbumForm');
 const HeadphoneForm = require('./HeadphoneForm');
+const MouseForm = require('./MouseForm');
 
 const formsHash = {
 	album: AlbumForm,
 	frame: FrameForm,
-	headphone: HeadphoneForm
+	headphone: HeadphoneForm,
+	mouse: MouseForm
 };
 
 class GoodForm extends React.Component {
@@ -67,11 +69,6 @@ class GoodForm extends React.Component {
 						paddingRight: 80,
 						paddingLeft: 80,
 						paddingTop: 0
-						// position: 'absolute',
-						// top: '100%',
-						// left: '50%',
-						// marginRight: '-50%',
-						// transform: 'translate(-50%, -50%)'
 					}}
 				>
 					<FormGroup error={errors.image}>
@@ -119,6 +116,7 @@ class GoodForm extends React.Component {
 							<option value="frame">Рамка</option>
 							<option value="album">Альбом</option>
 							<option value='headphone'>Наушники</option>
+							<option value='mouse'>Мышь</option>
 						</FormControl>
 					</FormGroup>
 					<FormComponent

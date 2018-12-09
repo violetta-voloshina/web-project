@@ -9,17 +9,20 @@ const PropTypes = require('prop-types');
 const Frame = require('./Frame');
 const Headphone = require('./Headphone');
 const Album = require('./Album');
+const Mouse = require('./Mouse');
 
 const typesHash = {
 	frame: 'Рамка',
 	headphone: 'Наушники',
-	album: 'Альбом'
+	album: 'Альбом',
+	mouse: 'Мышка'
 };
 
 const componentsHash = {
 	frame: Frame,
 	headphone: Headphone,
-	album: Album
+	album: Album,
+	mouse: Mouse
 };
 
 function Item({good}) {

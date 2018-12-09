@@ -28,6 +28,11 @@ exports.album = () => yup.object({
 	}).required()
 });
 
+exports.mouse = () => yup.object({
+	cord: yup.boolean(),
+	color: yup.string(),
+	manufacturer: yup.string()
+});
 // spareCushions: yup.boolean(),
 // microphon: yup.boolean(),
 // color: yup.string(),

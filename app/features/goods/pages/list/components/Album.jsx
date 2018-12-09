@@ -8,7 +8,7 @@ function Album({entity}) {
 				padding: 20
 			}}
 		>
-			<div>Размер размещаемой фотографии: {entity.width} x {entity.height}</div>
+			<div>Размер размещаемой фотографии: {entity.sizePhoto.width} x {entity.sizePhoto.height}</div>
 			<div>Тип листов: {entity.typeSheet} </div>
 			<div>Количество листов: {entity.countSheet}</div>
 		</div>

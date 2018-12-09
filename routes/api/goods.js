@@ -4,7 +4,13 @@ const validate = require('../../utils/validate');
 
 module.exports = function(app) {
 	app.get('/api/goods', async (req, res) => {
-		const goods = await db.goods.find({}).toArray();
+		const params = validate(req, {
+			type: {
+				enum: ['frame', 'album', 'headphone', 'batterie', 'cord', 'mouse', 'disk']
+			}
+		});
+
+		const goods = await db.goods.find(params).toArray();
 
 		res.json({goods, total: goods.length});
 	});
@@ -18,9 +24,7 @@ module.exports = function(app) {
 				maxLenth: 50
 			},
 			description: {
-				type: 'string',
-				minLength: 1,
-				maxLenth: 50
+				type: 'string'
 			},
 			image: schemas.image,
 			type: {

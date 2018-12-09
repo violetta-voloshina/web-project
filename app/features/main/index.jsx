@@ -1,5 +1,5 @@
 const React = require('react');
-const {Button, Box, Glyphicon} = require('react-bootstrap');
+const {Button, Glyphicon} = require('react-bootstrap');
 function Main() {
 	return (
 		<div>
@@ -19,9 +19,7 @@ function Main() {
 				</Button>
 			</div>
 			<div>
-				Это твоя главная страница.
-				Она будет загружаться, когда ты перейдешь на главную.
-				Здесь ты можешь все хардкодить.
+				Это главная страница.
 			</div>
 		</div>
 	);

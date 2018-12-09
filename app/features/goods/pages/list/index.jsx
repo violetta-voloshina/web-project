@@ -3,8 +3,14 @@ const axios = require('axios');
 const _ = require('underscore');
 const Item = require('./components/Item');
 const {Grid, Col} = require('react-bootstrap');
+const PropTypes = require('prop-types');
 
 class GoodsList extends React.Component {
+	static propTypes = {
+		location: PropTypes.shape({
+			query: PropTypes.any.isRequired
+		}).isRequired
+	}
 	state = {
 		goods: [],
 		isSubmitting: false
@@ -15,8 +21,12 @@ class GoodsList extends React.Component {
 			...state,
 			isSubmitting: true
 		}));
-
-		axios.get('/api/goods').then(({data}) => {
+		axios.get(
+			'/api/goods',
+			{
+				params: this.props.location.query
+			}
+		).then(({data}) => {
 			this.setState({
 				goods: data.goods,
 				isSubmitting: false

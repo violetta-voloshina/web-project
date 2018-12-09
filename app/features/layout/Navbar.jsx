@@ -25,13 +25,14 @@ function NavbarWrapper() {
 				<Navbar.Brand>
 					<a href="/">PhotoStudio</a>
 				</Navbar.Brand>
-				<Navbar.Toggle />
 				<Nav>
 					<NavDropdown eventKey={3} title="Товары" id="basic-nav-dropdown">
-						<MenuItem eventKey={3.1}>Рамки</MenuItem>
-						<MenuItem eventKey={3.2}>Альбомы</MenuItem>
+						<MenuItem eventKey={3.1} href="/goods">Все товары</MenuItem>
+						<MenuItem eventKey={3.1} href="/goods?type=frame">Рамки</MenuItem>
+						<MenuItem eventKey={3.2} href="/goods?type=album">Альбомы</MenuItem>
 						<MenuItem eventKey={3.3}>Диски</MenuItem>
-						<MenuItem eventKey={3.3}>Наушники</MenuItem>
+						<MenuItem eventKey={3.3} href="/goods?type=headphone">Наушники</MenuItem>
+						<MenuItem eventKey={3.3} href="/goods?type=mouse">Мышки</MenuItem>
 					</NavDropdown>
 					<NavItem eventKey={1} href="#">
 						Услуги
@@ -39,14 +40,14 @@ function NavbarWrapper() {
 				</Nav>
 			</Navbar.Header>
 			<Navbar.Collapse>
-				<Navbar.Form pullLeft>
+				<Navbar.Form pullRight>
 					<FormGroup>
 						<FormControl type="text" placeholder="Search" />
 					</FormGroup>
 					<Button bsStyle="primary">
 						Поиск
 					</Button>
-					<Button bsStyle="primary" style={{marginLeft: 10}}>
+					<Button href='/signin' bsStyle="primary" style={{marginLeft: 10}}>
 						Войти
 					</Button>
 				</Navbar.Form>
