@@ -1,8 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-	Input, FormGroup, Label
-} = require('reactstrap');
+const {Input, FormGroup, Label} = require('reactstrap');
 const {Checkbox} = require('react-bootstrap');
 
 class MouseForm extends React.Component {
@@ -17,19 +15,19 @@ class MouseForm extends React.Component {
 		errors: {}
 	}
 
-	onManufacturerChange = ({target}) => {
-		this.props.onChange('manufacturer', target.value)
-	}
-
-	onСolorChange = ({target}) => {
-		this.props.onChange('color', target.value)
-	}
-
-	onСordChange= () => {
+	onCordChange = () => {
 		this.props.onChange(
 			'cord',
 			!this.props.values.cord
 		);
+	}
+
+	onColorChange = ({target}) => {
+		this.props.onChange('color', target.value);
+	}
+
+	onManufacturerChange = ({target}) => {
+		this.props.onChange('manufacturer', target.value);
 	}
 
 	render() {
@@ -44,7 +42,7 @@ class MouseForm extends React.Component {
 						name="color"
 						placeholder="Основной цвет"
 						value={values.color}
-						onChange={this.onСolorChange}
+						onChange={this.onColorChange}
 					/>
 				</FormGroup>
 
@@ -53,7 +51,7 @@ class MouseForm extends React.Component {
 					<Checkbox
 						checked={values.cord || ''}
 						name='cord'
-						onChange={this.onСordChange}
+						onChange={this.onCordChange}
 					/>
 				</FormGroup>
 

@@ -1,6 +1,6 @@
 const React = require('react');
 const {Route} = require('react-router');
-const Layout = require('./features/layout');
+const Layout = require('./features/layout/Layout');
 const routes = require('./features/routes');
 
 module.exports = (

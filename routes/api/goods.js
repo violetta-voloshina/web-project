@@ -1,5 +1,6 @@
 const schemas = require('../schemas');
 const db = require('../../db');
+const checkAdmin = require('../../middlewares/checkAdmin');
 const validate = require('../../utils/validate');
 
 module.exports = function(app) {
@@ -15,7 +16,7 @@ module.exports = function(app) {
 		res.json({goods, total: goods.length});
 	});
 
-	app.post('/api/goods', async (req, res) => {
+	app.post('/api/goods', checkAdmin(), async (req, res) => {
 		const params = validate(req, {
 			name: {
 				type: 'string',

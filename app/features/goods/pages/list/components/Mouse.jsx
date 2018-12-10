@@ -1,7 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 
-
 function Mouse({entity}) {
 	const Cord = entity.cord ? 'Проводная' : 'Беспроводная';
 	return (

@@ -19,6 +19,20 @@ class ForbiddenAttachmentType extends Error {
 		this.statusCode = 500;
 	}
 }
+
+class UnauthorizedError extends Error {
+	constructor(...args) {
+		super(...args);
+
+		this.name = 'UnauthorizedError';
+		this.message = 'You have no access';
+		this.userMessage = 'Доступ запрещен';
+		this.statusCode = 401;
+	}
+}
+
 exports.NotFoundError = NotFoundError;
 
 exports.ForbiddenAttachmentType = ForbiddenAttachmentType;
+
+exports.UnauthorizedError = UnauthorizedError;

@@ -11,6 +11,12 @@ const {
 } = require('react-bootstrap');
 
 function NavbarWrapper() {
+	const signIn = document.cookie.replace(
+		// eslint-disable-next-line no-useless-escape
+		/(?:(?:^|.*;\s*)login\s*\=\s*([^;]*).*$)|^.*$/,
+		'$1'
+	);
+
 	return (
 		<Navbar
 			inverse
@@ -47,9 +53,11 @@ function NavbarWrapper() {
 					<Button bsStyle="primary">
 						Поиск
 					</Button>
-					<Button href='/signin' bsStyle="primary" style={{marginLeft: 10}}>
-						Войти
-					</Button>
+					{!signIn && (
+						<Button href='/signin' bsStyle="primary" style={{marginLeft: 10}}>
+							Войти
+						</Button>
+					)}
 				</Navbar.Form>
 			</Navbar.Collapse>
 		</Navbar>

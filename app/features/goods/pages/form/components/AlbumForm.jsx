@@ -1,8 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-	Input, FormGroup, Label
-} = require('reactstrap');
+const {Input, FormGroup, Label} = require('reactstrap');
 
 class AlbumForm extends React.Component {
 	static propTypes = {
@@ -30,11 +28,11 @@ class AlbumForm extends React.Component {
 		});
 	}
 
-	ontypeSheetChange = ({target}) => {
+	onTypeSheetChange = ({target}) => {
 		this.props.onChange('typeSheet', target.value);
 	}
 
-	oncountSheetChange = ({target}) => {
+	onCountSheetChange = ({target}) => {
 		this.props.onChange('countSheet', Number(target.value));
 	}
 
@@ -75,7 +73,7 @@ class AlbumForm extends React.Component {
 						name="typeSheet"
 						placeholder="Тип материала"
 						value={values.typeSheet}
-						onChange={this.ontypeSheetChange}
+						onChange={this.onTypeSheetChange}
 					/>
 				</FormGroup>
 
@@ -87,7 +85,7 @@ class AlbumForm extends React.Component {
 						max="4000"
 						min="10"
 						value={values.countSheet}
-						onChange={this.oncountSheetChange}
+						onChange={this.onCountSheetChange}
 					/>
 				</FormGroup>
 			</React.Fragment>

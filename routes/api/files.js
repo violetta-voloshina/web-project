@@ -1,8 +1,9 @@
-const multer = require('../../middlewares/multer');
 const _ = require('underscore');
+const multer = require('../../middlewares/multer');
+const checkAdmin = require('../../middlewares/checkAdmin');
 
 module.exports = (app) => {
-	app.post('/files/upload', multer, (req, res) => {
+	app.post('/files/upload', checkAdmin(), multer, (req, res) => {
 		const image = _(req.files)
 			.chain()
 			.first()

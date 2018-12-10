@@ -4,7 +4,8 @@ const config = require('../config')();
 
 const collections = [
 	'goods',
-	'services'
+	'services',
+	'users'
 ];
 
 let initialized = false;

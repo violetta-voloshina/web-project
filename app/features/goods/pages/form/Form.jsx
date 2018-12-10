@@ -7,10 +7,10 @@ const {FormControl} = require('react-bootstrap');
 const {withFormik} = require('formik');
 const yup = require('app/utils/yup');
 const {uploadImage} = require('app/utils/uploads');
-const FrameForm = require('./FrameForm');
-const AlbumForm = require('./AlbumForm');
-const HeadphoneForm = require('./HeadphoneForm');
-const MouseForm = require('./MouseForm');
+const FrameForm = require('./components/FrameForm');
+const AlbumForm = require('./components/AlbumForm');
+const HeadphoneForm = require('./components/HeadphoneForm');
+const MouseForm = require('./components/MouseForm');
 
 const formsHash = {
 	album: AlbumForm,
@@ -103,11 +103,6 @@ class GoodForm extends React.Component {
 					<FormGroup error={errors.type}>
 						<Label>Тип товара</Label>
 						<FormControl
-							// bsSize="lg"
-							// name="type"
-							// type="select"
-							// value={values.type}
-							// onChange={this.onTypeChange}
 							componentClass="select"
 							onChange={this.onTypeChange}
 							value={values.type}

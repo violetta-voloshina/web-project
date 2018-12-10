@@ -1,8 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {
-	Input, FormGroup, Label
-} = require('reactstrap');
+const {Input, FormGroup, Label} = require('reactstrap');
 
 class FrameForm extends React.Component {
 	static propTypes = {

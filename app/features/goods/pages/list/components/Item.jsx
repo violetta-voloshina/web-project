@@ -1,10 +1,5 @@
 const React = require('react');
-const {
-	Card,
-	CardImg,
-	CardText,
-	CardBody
-} = require('reactstrap');
+const {Card, CardImg, CardText, CardBody} = require('reactstrap');
 const PropTypes = require('prop-types');
 const Frame = require('./Frame');
 const Headphone = require('./Headphone');
@@ -63,7 +58,10 @@ Item.propTypes = {
 		}).isRequired,
 		name: PropTypes.string.isRequired,
 		description: PropTypes.string,
-		type: PropTypes.oneOf(['frame', 'album', 'headphone', 'batterie', 'cord', 'mouse', 'disk']).isRequired,
+		type: PropTypes.oneOf([
+			'frame', 'album', 'headphone',
+			'batterie', 'cord', 'mouse', 'disk'
+		]).isRequired,
 		frame: PropTypes.shape({
 			size: PropTypes.shape({
 				width: PropTypes.number.isRequired,

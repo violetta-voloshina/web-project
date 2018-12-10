@@ -1,7 +1,7 @@
 const _ = require('underscore');
 
 module.exports = (app) => {
-	_(['goods', 'files']).each((file) => {
+	_(['goods', 'files', 'sign']).each((file) => {
 		require('./' + file)(app);
 	});
 };
