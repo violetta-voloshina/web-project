@@ -22,12 +22,40 @@ const formsHash = {
 class GoodForm extends React.Component {
 
 	static propTypes = {
+		params: PropTypes.any.isRequired,
+		route: PropTypes.any.isRequired,
 		errors: PropTypes.any.isRequired,
 		handleChange: PropTypes.func.isRequired,
 		handleSubmit: PropTypes.func.isRequired,
 		setFieldValue: PropTypes.func.isRequired,
 		values: PropTypes.any.isRequired
 	}
+
+	state = {
+		stateValues: {}
+	}
+
+	// static getDerivedStateFromProps(nextProps, prevState) {
+	// 	if (nextProps.stateValues !== prevState.stateValues) {
+	// 		return {
+	// 			stateValues: nextProps.stateValues
+	// 		}
+	// 	}
+
+	// 	return null;
+	// }
+
+	componentDidMount() {
+		const {params} = this.props;
+		const id = params.id;
+		console.log(true);
+		if (id) {
+			axios.get(`/api/goods/${id}`).then(({data}) => {
+				this.setState({stateValues: data.goods[0]});
+			});
+		}
+	}
+
 
 	onImageChange = ({currentTarget}) => {
 		const file = _(currentTarget.files).first();
@@ -48,9 +76,25 @@ class GoodForm extends React.Component {
 		this.props.setFieldValue('entity', {});
 	}
 
+	handleSubmit = (event) => {
+		event.preventDefault();
+		console.log('updated');
+	};
+
 	render() {
-		const {values, handleChange, errors} = this.props;
-		const FormComponent = formsHash[values.type];
+		const {values, route, handleChange, errors} = this.props;
+		const {stateValues} = this.state;
+		const url = route.path.split('/')[1];
+		let FormComponent = formsHash[values.type];
+		console.log(values.type);
+		let data = values;
+
+		const edit = url === 'edit';
+
+		if (edit) {
+			data = stateValues;
+			// FormComponent = formsHash[data.type];
+		}
 
 		return (
 			<div>
@@ -62,7 +106,11 @@ class GoodForm extends React.Component {
 						borderBottom: '1px solid #eee'
 					}}
 				>
-					<h1>Добавление товара</h1>
+					{
+						edit
+							? <h1>Редактирование товара</h1>
+							: <h1>Добавление товара</h1>
+					}
 				</div>
 				<Form
 					style={{
@@ -85,7 +133,7 @@ class GoodForm extends React.Component {
 							name="name"
 							type="text"
 							placeholder="Название товара"
-							value={values.name}
+							value={data.name}
 							onChange={handleChange}
 						/>
 					</FormGroup>
@@ -96,7 +144,7 @@ class GoodForm extends React.Component {
 							name="description"
 							type="text"
 							placeholder="Описание товара"
-							value={values.description}
+							value={data.description}
 							onChange={handleChange}
 						/>
 					</FormGroup>
@@ -105,7 +153,7 @@ class GoodForm extends React.Component {
 						<FormControl
 							componentClass="select"
 							onChange={this.onTypeChange}
-							value={values.type}
+							value={data.type}
 							name="type"
 						>
 							<option value="frame">Рамка</option>
@@ -115,7 +163,7 @@ class GoodForm extends React.Component {
 						</FormControl>
 					</FormGroup>
 					<FormComponent
-						values={values.entity}
+						values={data.entity}
 						onChange={this.onGoodChange}
 						errors={errors.entity}
 					/>
@@ -135,17 +183,34 @@ class GoodForm extends React.Component {
 						>
 							Вернуться
 						</Button>
-						<Button
-							type='submit'
-							style={{
-								background: 'gray',
-								color: 'white',
-								borderRadius: '1em'
-							}}
-							onClick={this.props.handleSubmit}
-						>
-							Добавить товар
-						</Button>
+						{
+
+						}
+						{
+							edit
+								? <Button
+									type='submit'
+									style={{
+										background: 'gray',
+										color: 'white',
+										borderRadius: '1em'
+									}}
+									onClick={this.handleSubmit}
+								>
+									Изменить товар
+								</Button>
+								: <Button
+								type='submit'
+								style={{
+									background: 'gray',
+									color: 'white',
+									borderRadius: '1em'
+								}}
+								onClick={this.props.handleSubmit}
+							>
+								Добавить товар
+							</Button>
+						}
 					</FormGroup>
 				</Form>
 			</div>
@@ -157,7 +222,7 @@ module.exports = withFormik({
 	mapPropsToValues: () => ({
 		name: '',
 		description: '',
-		type: 'frame'
+		type: 'headphone'
 	}),
 
 	validationSchema: yup.object({

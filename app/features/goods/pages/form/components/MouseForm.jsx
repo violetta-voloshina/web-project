@@ -60,7 +60,7 @@ class MouseForm extends React.Component {
 					<Input
 						type="text"
 						name="manufacturer"
-						placeholder="Тип материала"
+						placeholder="Производитель"
 						value={values.manufacturer || ''}
 						onChange={this.onManufacturerChange}
 					/>

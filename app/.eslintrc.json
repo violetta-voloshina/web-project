@@ -2,5 +2,8 @@
 	"extends": "dvpnt-react",
 	"globals": {
 		"FileReader": true
+	},
+	"rules": {
+		"no-console": "warn"
 	}
 }

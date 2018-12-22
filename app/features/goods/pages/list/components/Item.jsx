@@ -1,6 +1,7 @@
 const React = require('react');
-const {Card, CardImg, CardText, CardBody} = require('reactstrap');
+const {Card, CardImg, CardText, CardBody, Button} = require('reactstrap');
 const PropTypes = require('prop-types');
+const Link = require('react-router').Link;
 const Frame = require('./Frame');
 const Headphone = require('./Headphone');
 const Album = require('./Album');
@@ -46,6 +47,9 @@ function Item({good}) {
 				<CardText>{good.description}</CardText>
 			</CardBody>
 			<Component entity={good[good.type]} />
+			<Link to={`/edit/${good._id}`} style={{paddingLeft: 24}}>
+				<Button>Edit</Button>
+			</Link>
 		</Card>
 	);
 }

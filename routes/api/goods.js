@@ -16,6 +16,16 @@ module.exports = function(app) {
 		res.json({goods, total: goods.length});
 	});
 
+	app.get('/api/goods/:id', async (req, res) => {
+		const params = validate(req, {
+			id: {
+				type: 'number'
+			}
+		});
+		const goods = await db.goods.find({_id: params.id}).toArray();
+		res.json({goods, total: goods.length});
+	});
+
 	app.post('/api/goods', checkAdmin(), async (req, res) => {
 		const params = validate(req, {
 			name: {

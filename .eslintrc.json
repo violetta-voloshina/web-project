@@ -1,3 +1,6 @@
 {
-	"extends": "dvpnt"
+	"extends": "dvpnt",
+	"rules": {
+		"no-console": "warn"
+	}
 }

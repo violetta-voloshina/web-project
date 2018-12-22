@@ -27,9 +27,6 @@ function Main() {
 					</Button>
 				)}
 			</div>
-			<div>
-				Это главная страница.
-			</div>
 		</div>
 	);
 }

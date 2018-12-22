@@ -36,11 +36,10 @@ function NavbarWrapper() {
 						<MenuItem eventKey={3.1} href="/goods">Все товары</MenuItem>
 						<MenuItem eventKey={3.1} href="/goods?type=frame">Рамки</MenuItem>
 						<MenuItem eventKey={3.2} href="/goods?type=album">Альбомы</MenuItem>
-						<MenuItem eventKey={3.3}>Диски</MenuItem>
 						<MenuItem eventKey={3.3} href="/goods?type=headphone">Наушники</MenuItem>
 						<MenuItem eventKey={3.3} href="/goods?type=mouse">Мышки</MenuItem>
 					</NavDropdown>
-					<NavItem eventKey={1} href="#">
+					<NavItem eventKey={1} href="/service">
 						Услуги
 					</NavItem>
 				</Nav>
