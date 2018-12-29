@@ -9,29 +9,31 @@ const {Carousel, Image} = require('react-bootstrap');
 class Main extends React.Component {
 
 	state = {
-		frames: [],
-		headphones: [],
-		albums: [],
-		mouses: [],
-		isSubmitting: false
+		frame: null,
+		headphone: null,
+		album: null,
+		isSubmitting: true
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		this.setState((state) => ({
 			...state,
 			isSubmitting: true
 		}));
 
-		axios.get(
-			'/api/goods/13'
+		await Promise.all(
+			_(['frame', 'headphone', 'album']).map(async (type) => {
+				const {data} = await axios.get(
+					'/api/goods',
+					{params: {type, limit: 1}}
+				);
 
-		).then(({data}) => {
-			this.setState({
-				frames: data.frames,
-				isSubmitting: false
-			});
-		});
-	}
+				this.setState({[type]: _(data.goods).first()});
+			})
+		);
+
+		this.setState({isSubmitting: false});
+}
 
 	render() {
 
@@ -39,11 +41,8 @@ class Main extends React.Component {
 			return 'Загрузка';
 		}
 
-		const {frames} = this.state;
-		const {headphones} = this.state;
-		const {albums} = this.state;
-		const {mouses} = this.state;
-		console.log(frames);
+		const {frame, album, headphone} = this.state;
+
 		return (
 			<Jumbotron
 				style={{
@@ -59,7 +58,12 @@ class Main extends React.Component {
 				<hr className="my-2" />
 				<Carousel>
 					<Carousel.Item>
-						<Image width={900} height={500} alt="900x500" src={`/uploads/${frames.image.name}`} />
+						<Image
+							width={900}
+							height={500}
+							alt="900x500"
+							src={`/uploads/${frame.image.name}`}
+						/>
 						<Carousel.Caption>
 							<h3>First slide label</h3>
 							<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
