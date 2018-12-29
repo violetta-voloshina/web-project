@@ -59,8 +59,8 @@ class AlbumForm extends React.Component {
 					<Input
 						type="number"
 						name="width"
-						max="60"
-						min="2"
+						max={60}
+						min={2}
 						value={sizePhoto && sizePhoto.width || ''}
 						onChange={this.onWidthChange}
 					/>
@@ -82,8 +82,8 @@ class AlbumForm extends React.Component {
 					<Input
 						type="number"
 						name="countSheet"
-						max="4000"
-						min="10"
+						max={4000}
+						min={10}
 						value={values.countSheet}
 						onChange={this.onCountSheetChange}
 					/>

@@ -79,8 +79,8 @@ class HeadphoneForm extends React.Component {
 					<Input
 						type="number"
 						name="sensitivity"
-						max="300"
-						min="80"
+						max={300}
+						min={80}
 						value={values.sensitivity || ''}
 						onChange={this.onSensitivityChange}
 					/>

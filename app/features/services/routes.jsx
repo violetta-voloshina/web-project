@@ -5,7 +5,7 @@ const AddForm = require('./pages/form/Add');
 const EditForm = require('./pages/form/Edit');
 
 module.exports = (
-	<Route path="goods">
+	<Route path="services">
 		<IndexRoute components={List} />
 		<Route component={AddForm} path="add" />
 		<Route component={EditForm} path=":_id/edit" />

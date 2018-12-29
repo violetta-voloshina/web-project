@@ -1,11 +1,6 @@
 const React = require('react');
 const {Button, Card, CardImg, CardText, CardBody} = require('reactstrap');
-const Link = require('react-router').Link;
 const PropTypes = require('prop-types');
-const Frame = require('./Frame');
-const Headphone = require('./Headphone');
-const Album = require('./Album');
-const Mouse = require('./Mouse');
 
 const typesHash = {
 	frame: 'Рамка',
@@ -14,20 +9,9 @@ const typesHash = {
 	mouse: 'Мышка'
 };
 
-const componentsHash = {
-	frame: Frame,
-	headphone: Headphone,
-	album: Album,
-	mouse: Mouse
-};
 
-function Item({good, onDeleteClick}) {
-	const isAdmin = /admin/.test(document.cookie.replace(
-		// eslint-disable-next-line no-useless-escape
-		/(?:(?:^|.*;\s*)login\s*\=\s*([^;]*).*$)|^.*$/,
-		'$1'
-	));
-	const Component = componentsHash[good.type];
+function Item({good}) {
+	console.log(`/uploads/${good.image.name}`);
 	return (
 		<Card
 			style={{
@@ -51,25 +35,6 @@ function Item({good, onDeleteClick}) {
 				<h4>{good.name}</h4>
 				<CardText>{good.description}</CardText>
 			</CardBody>
-			<Component entity={good[good.type]} />
-			{isAdmin && (
-				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between'
-					}}
-				>
-					<Link to={`/goods/${good._id}/edit`}>
-						<Button>Изменить товар</Button>
-					</Link>
-					<Button
-						type='submit'
-						onClick={onDeleteClick}
-					>
-						Удалить товар
-					</Button>
-				</div>
-			)}
 		</Card>
 	);
 }
@@ -124,8 +89,7 @@ Item.propTypes = {
 		disk: PropTypes.shape({
 			typeRecord: PropTypes.string.isRequired
 		})
-	}).isRequired,
-	onDeleteClick: PropTypes.func.isRequired
+	}).isRequired
 };
 
 module.exports = Item;

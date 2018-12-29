@@ -4,10 +4,11 @@ const PropTypes = require('prop-types');
 const {withFormik} = require('formik');
 const yup = require('app/utils/yup');
 const {
-	Button, Form, FormGroup, Col, FormControl, ControlLabel
+	Button,Pane, Form, Tab, Formsy, FormGroup, ControlLabel, TextInput
 } = require('react-bootstrap');
 
 function SignInForm({values, handleChange, errors, handleSubmit}) {
+	console.log(errors);
 	return (
 		<div>
 			<div
@@ -20,80 +21,26 @@ function SignInForm({values, handleChange, errors, handleSubmit}) {
 			>
 				<h2>Вход в систему</h2>
 			</div>
-			<Form
-				horizontal
-				style={{
-					paddingRight: 80,
-					paddingLeft: 80,
-					paddingTop: 0
-				}}
-			>
-				{/* TODO: make error red color */}
-				<FormGroup>
-					<Col componentClass={ControlLabel} sm={2}>
-						{errors.auth}
-					</Col>
-				</FormGroup>
+				<Tab.Pane eventKey="email">
+					<Formsy.Form onValidSubmit={this.handleLogin} onValid={this.enableButton} onInvalid={this.disableButton}>
 
-				<FormGroup controlId="formHorizontalEmail">
-					<Col componentClass={ControlLabel} sm={2}>
-						e-mail
-					</Col>
-					<Col sm={10}>
-						<FormControl
-							error={errors.email}
-							type="email"
-							name="email"
-							placeholder="Email"
-							value={values.email}
-							onChange={handleChange}
-						/>
-					</Col>
-				</FormGroup>
+						<FormGroup>
+							<ControlLabel>Email</ControlLabel>
+								<TextInput name="email" type="text" validations={{isGoogleEmail: validations.isGoogleEmail}} validationErrors={{isGoogleEmail: 'Only Gmail boxes are accepted'}} required/>
+						</FormGroup>
 
-				<FormGroup controlId="formHorizontalPassword">
-					<Col componentClass={ControlLabel} sm={2}>
-						Пароль
-					</Col>
-					<Col sm={10}>
-						<FormControl
-							error={errors.password}
-							type="password"
-							name="password"
-							placeholder="Password"
-							value={values.password}
-							onChange={handleChange}
-						/>
-					</Col>
-				</FormGroup>
+						<FormGroup>
+							<ControlLabel>Password</ControlLabel>
+								<TextInput name="loginPassword" type="password" validations={{strongPassword: validations.strongPassword}} validationErrors={{strongPassword: "Enter a strong password! At least 6 symbols"}} required/>
+						</FormGroup>
 
-				<FormGroup>
-					<Col
-						smOffset={2}
-						sm={10}
-						style={{
-							display: 'flex'
-						}}
-					>
-						<Button
-							type="submit"
-							onClick={handleSubmit}
-						>
-							Войти
-						</Button>
-						<a
-							style={{
-								margin: 'auto',
-								marginLeft: '10px'
-							}}
-							href="/signup"
-						>
-								Зарегистрироваться
-						</a>
-					</Col>
-				</FormGroup>
-			</Form>
-		</div>
+						<FormGroup>
+							<Button type="submit" bsStyle="primary" disabled={!this.state.isButtonEnabled} block>Login</Button>
+						</FormGroup>
+
+					</Formsy.Form>
+				</Tab.Pane>
+			</div>
 	);
 }
 

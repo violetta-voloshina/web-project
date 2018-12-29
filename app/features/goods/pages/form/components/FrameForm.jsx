@@ -44,6 +44,8 @@ class FrameForm extends React.Component {
 						bsSize="lg"
 						name="height"
 						type="number"
+						max={60}
+						min={1}
 						placeholder="Высота рамки"
 						step="1"
 						value={size && size.height || ''}
@@ -57,6 +59,8 @@ class FrameForm extends React.Component {
 						bsSize="lg"
 						name="width"
 						type="number"
+						max={60}
+						min={1}
 						placeholder="Ширина рамки"
 						step="1"
 						value={size && size.width || ''}

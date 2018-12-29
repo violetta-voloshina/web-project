@@ -73,4 +73,9 @@ module.exports = function(app) {
 
 		res.send(_(user).omit('password'));
 	});
+
+	app.delete('/api/signout', (req, res) => {
+		res.clearCookie('login');
+		res.sendStatus(200);
+	});
 };

@@ -20,13 +20,14 @@ const formsHash = {
 };
 
 class GoodForm extends React.Component {
-
 	static propTypes = {
 		errors: PropTypes.any.isRequired,
 		handleChange: PropTypes.func.isRequired,
 		handleSubmit: PropTypes.func.isRequired,
 		setFieldValue: PropTypes.func.isRequired,
-		values: PropTypes.any.isRequired
+		values: PropTypes.any.isRequired,
+		header: PropTypes.string.isRequired,
+		buttonName: PropTypes.string.isRequired
 	}
 
 	onImageChange = ({currentTarget}) => {
@@ -62,7 +63,7 @@ class GoodForm extends React.Component {
 						borderBottom: '1px solid #eee'
 					}}
 				>
-					<h1>Добавление товара</h1>
+					<h1>{this.props.header}</h1>
 				</div>
 				<Form
 					style={{
@@ -144,7 +145,7 @@ class GoodForm extends React.Component {
 							}}
 							onClick={this.props.handleSubmit}
 						>
-							Добавить товар
+							{this.props.buttonName}
 						</Button>
 					</FormGroup>
 				</Form>
@@ -154,10 +155,13 @@ class GoodForm extends React.Component {
 }
 
 module.exports = withFormik({
-	mapPropsToValues: () => ({
-		name: '',
-		description: '',
-		type: 'frame'
+	mapPropsToValues: ({good = {}}) => ({
+		_id: good._id,
+		name: good.name || '',
+		description: good.description || '',
+		type: good.type || 'frame',
+		image: good.image || '',
+		entity: good[good.type] || {}
 	}),
 
 	validationSchema: yup.object({
@@ -176,11 +180,12 @@ module.exports = withFormik({
 	}),
 
 	handleSubmit: (values, {props}) => {
-		const good = _(values).pick('name', 'description', 'image', 'type');
+		const good = _(values).pick('_id', 'name', 'description', 'image', 'type');
 		good[good.type] = values.entity;
-
 		uploadImage(good.image).then(() => {
-			axios.post('/api/goods', good).then(() => {
+			axios[
+				good._id ? 'patch' : 'post'
+			](`/api/goods${good._id ? `/${good._id}` : ''}`, good).then(() => {
 				props.router.push('/goods');
 			});
 		});

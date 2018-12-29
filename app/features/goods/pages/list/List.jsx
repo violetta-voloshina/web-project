@@ -39,7 +39,13 @@ class GoodsList extends React.Component {
 		const columns = _(columnsCount).times(() => []);
 
 		_(goods).map((good, index) => {
-			columns[index % columnsCount].push(<Item key={good._id} good={good} />);
+			columns[index % columnsCount].push(
+				<Item
+					key={good._id}
+					good={good}
+					onDeleteClick={_(this.onDeleteClick).partial(good._id)}
+				/>
+			);
 		});
 
 		return (
@@ -51,6 +57,17 @@ class GoodsList extends React.Component {
 				))}
 			</React.Fragment>
 		);
+	}
+
+	onDeleteClick = (goodId) => {
+		axios.delete(`api/goods/${goodId}`).then(() => {
+			// удалить из state товаров с _id = _id
+			this.setState(({goods, total}) => {
+				const newGoods = _(goods).filter(({_id}) => _id !== goodId);
+
+				return {goods: newGoods, total: total - 1};
+			});
+		});
 	}
 
 	render() {
