@@ -1,37 +1,37 @@
 const React = require('react');
 const axios = require('axios');
-const PropTypes = require('prop-types');
 const _ = require('underscore');
-const Item = require('./Item');
 const {Jumbotron} = require('reactstrap');
-const {Carousel, Image} = require('react-bootstrap');
+const {Button, Table, Image, Col, Row} = require('react-bootstrap');
 
 class Main extends React.Component {
 
 	state = {
-		frames: [],
-		headphones: [],
-		albums: [],
-		mouses: [],
-		isSubmitting: false
+		frame: null,
+		headphone: null,
+		album: null,
+		isSubmitting: true
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		this.setState((state) => ({
 			...state,
 			isSubmitting: true
 		}));
 
-		axios.get(
-			'/api/goods/13'
+		await Promise.all(
+			_(['frame', 'headphone', 'album', 'mouse']).map(async (type) => {
+				const {data} = await axios.get(
+					'/api/goods',
+					{params: {type, limit: 1}}
+				);
 
-		).then(({data}) => {
-			this.setState({
-				frames: data.frames,
-				isSubmitting: false
-			});
-		});
-	}
+				this.setState({[type]: _(data.goods).first()});
+			})
+		);
+
+		this.setState({isSubmitting: false});
+}
 
 	render() {
 
@@ -39,34 +39,143 @@ class Main extends React.Component {
 			return 'Загрузка';
 		}
 
-		const {frames} = this.state;
-		const {headphones} = this.state;
-		const {albums} = this.state;
-		const {mouses} = this.state;
-		console.log(frames);
+		const {frame, album, headphone, mouse} = this.state;
+
 		return (
-			<Jumbotron
+			<div
 				style={{
-					margin: 20,
-					padding: 20,
-					textAlign: 'center'
+					margin: 30,
+					padding: 30
 				}}
 			>
-				<h1 className="display-3">Добро пожаловать в нашу ФотоСтудию!</h1>
-				<p className="lead">
-					Здесь вы можете ознакомиться с перечнем наших услуг и товаров.
-				</p>
-				<hr className="my-2" />
-				<Carousel>
-					<Carousel.Item>
-						<Image width={900} height={500} alt="900x500" src={`/uploads/${frames.image.name}`} />
-						<Carousel.Caption>
-							<h3>First slide label</h3>
-							<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-						</Carousel.Caption>
-					</Carousel.Item>
-				</Carousel>
-			</Jumbotron>
+				<Jumbotron
+					style={{
+						margin: 20,
+						padding: 20,
+						textAlign: 'center'
+					}}
+				>
+					<h1 className="display-3">Добро пожаловать в нашу ФотоСтудию!</h1>
+					<p className="lead">
+						Здесь вы можете ознакомиться с перечнем наших услуг и товаров.
+					</p>
+				</Jumbotron>
+				<Row className="show-grid">
+					<Col sm={4}>
+						<Image src={`/uploads/${frame.image.name}`} thumbnail />
+					</Col>
+					<Col sm={8}>
+						<Jumbotron
+							style={{
+								margin: 20,
+								padding: 20,
+								textAlign: 'center'
+							}}
+						>
+							<h3 className="display-3">В наличии имеется большой выбор рамочек стандартных размеров: </h3>
+							<Table striped bordered condensed hover>
+								<thead>
+									<tr>
+										<th
+											style={{textAlign: 'center'}}
+										>
+											Ширина
+										</th>
+										<th
+											style={{textAlign: 'center'}}
+										>
+											Высота
+										</th>
+										<th
+											style={{textAlign: 'center'}}
+										>
+											Минимальная цена
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>10</td>
+										<td>15</td>
+										<td>65</td>
+									</tr>
+									<tr>
+										<td>15</td>
+										<td>21</td>
+										<td>120</td>
+									</tr>
+									<tr>
+										<td>21</td>
+										<td>30</td>
+										<td>170</td>
+									</tr>
+									<tr>
+										<td>30</td>
+										<td>40</td>
+										<td>240</td>
+									</tr>
+								</tbody>
+							</Table>
+							<Button href="/goods?type=frame">Перейти к товарам</Button>
+						</Jumbotron>
+					</Col>
+				</Row>
+				<Row className="show-grid">
+					<Col sm={8}>
+						<Jumbotron
+							style={{
+								margin: 20,
+								padding: 20,
+								textAlign: 'center'
+							}}
+						>
+							<h3 className="display-3">В наличии имеютя альбомы:  </h3>
+							<h4 className="display-3">детские, свадебные, семейные. </h4>
+							<Button href="/goods?type=album">Перейти к товарам</Button>
+						</Jumbotron>
+					</Col>
+					<Col sm={4}>
+						<Image src={`/uploads/${album.image.name}`} thumbnail />
+					</Col>
+				</Row>
+				<Row className="show-grid">
+					<Col sm={4}>
+						<Image src={`/uploads/${headphone.image.name}`} thumbnail />
+					</Col>
+					<Col sm={8}>
+						<Jumbotron
+							style={{
+								margin: 20,
+								padding: 20,
+								textAlign: 'center'
+							}}
+						>
+							<h3 className="display-3">В наличии имеютя наушники:  </h3>
+							<h4 className="display-3">капельки, вкладышы, наушники для ПК. </h4>
+							<Button href="/goods?type=headphone">Перейти к товарам</Button>
+						</Jumbotron>
+					</Col>
+				</Row>
+				<Row className="show-grid">
+					<Col sm={8}>
+						<Jumbotron
+							style={{
+								margin: 20,
+								padding: 20,
+								textAlign: 'center'
+							}}
+						>
+							<h3 className="display-3">В наличии имеютя мышки:  </h3>
+							<h4 className="display-3">проводные,безпроводные. </h4>
+							<h4 className="display-3">Также вы можете приобрести у нас коврик для мышки и батарейки.</h4>
+							<Button href="/goods?type=mouse">Перейти к товарам</Button>
+						</Jumbotron>
+					</Col>
+					<Col sm={4}>
+						<Image src={`/uploads/${mouse.image.name}`} thumbnail />
+					</Col>
+				</Row>
+			</div>
 		);
 	}
 }

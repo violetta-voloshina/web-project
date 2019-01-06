@@ -1,8 +1,11 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Input, FormGroup, Label} = require('reactstrap');
-const {Checkbox} = require('react-bootstrap');
-
+const {
+	Label
+} = require('reactstrap');
+const {
+	FormGroup, FormControl, ControlLabel, Checkbox
+} = require('react-bootstrap');
 class MouseForm extends React.Component {
 	static propTypes = {
 		errors: PropTypes.any,
@@ -35,9 +38,9 @@ class MouseForm extends React.Component {
 
 		return (
 			<React.Fragment>
-				<FormGroup error={errors.color}>
+				<FormGroup validationState={errors.color ? 'error' : 'success'}>
 					<Label>Основной цвет</Label>
-					<Input
+					<FormControl
 						type="text"
 						name="color"
 						placeholder="Основной цвет"
@@ -46,18 +49,27 @@ class MouseForm extends React.Component {
 					/>
 				</FormGroup>
 
-				<FormGroup error={errors.cord}>
+				<FormGroup validationState={errors.cord ? 'error' : 'success'}>
 					<Label>Проводная/безпроводная</Label>
 					<Checkbox
 						checked={values.cord || ''}
 						name='cord'
 						onChange={this.onCordChange}
-					/>
+					>
+						Проводная/безпроводная
+					</Checkbox>
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.cord && 'Выберите есть ли шнур'}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup label="Производитель" error={errors.manufacturer}>
+				<FormGroup validationState={errors.manufacturer ? 'error' : 'success'}>
 					<Label>Производитель</Label>
-					<Input
+					<FormControl
 						type="text"
 						name="manufacturer"
 						placeholder="Тип материала"

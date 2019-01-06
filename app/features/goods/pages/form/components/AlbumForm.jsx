@@ -1,6 +1,11 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Input, FormGroup, Label} = require('reactstrap');
+const {
+	Label
+} = require('reactstrap');
+const {
+	FormGroup, FormControl, ControlLabel
+} = require('react-bootstrap');
 
 class AlbumForm extends React.Component {
 	static propTypes = {
@@ -42,9 +47,9 @@ class AlbumForm extends React.Component {
 
 		return (
 			<React.Fragment>
-				<FormGroup error={errors.size && errors.size.height}>
+				<FormGroup validationState={errors.sizePhoto && errors.sizePhoto.height ? 'error' : 'success'}>
 					<Label>Высота фотографии</Label>
-					<Input
+					<FormControl
 						type="number"
 						name="height"
 						max={60}
@@ -52,11 +57,24 @@ class AlbumForm extends React.Component {
 						value={sizePhoto && sizePhoto.height || ''}
 						onChange={this.onHeightChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.sizePhoto && errors.sizePhoto.height &&
+							(errors.sizePhoto.height === 'entity.sizePhoto.height is a required field' ?
+								'Введите высоту рамки' :
+								'Введите значение от 1 до 60'
+							)
+						}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup error={errors.size && errors.size.width}>
+				<FormGroup validationState={errors.sizePhoto && errors.sizePhoto.width ? 'error' : 'success'}>
 					<Label>Ширина фотографии</Label>
-					<Input
+					<FormControl
 						type="number"
 						name="width"
 						max={60}
@@ -64,22 +82,43 @@ class AlbumForm extends React.Component {
 						value={sizePhoto && sizePhoto.width || ''}
 						onChange={this.onWidthChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.sizePhoto && errors.sizePhoto.width &&
+							(errors.sizePhoto.width === 'entity.sizePhoto.width is a required field' ?
+								'Введите ширину рамки' :
+								'Введите значение от 1 до 60'
+							)
+						}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup error={errors.typeSheet}>
+				<FormGroup validationState={errors.typeSheet ? 'error' : 'success'}>
 					<Label>Тип страниц</Label>
-					<Input
+					<FormControl
 						type="text"
 						name="typeSheet"
 						placeholder="Тип материала"
 						value={values.typeSheet}
 						onChange={this.onTypeSheetChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.typeSheet && 'Введите тип страниц'}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup error={errors.countSheet}>
+				<FormGroup validationState={errors.countSheet ? 'error' : 'success'}>
 					<Label>Число страниц</Label>
-					<Input
+					<FormControl
 						type="number"
 						name="countSheet"
 						max={4000}
@@ -87,6 +126,19 @@ class AlbumForm extends React.Component {
 						value={values.countSheet}
 						onChange={this.onCountSheetChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.countSheet &&
+							(errors.countSheet === 'entity.countSheet is a required field' ?
+								'Введите число страниц' :
+								'Введите значение от 10 до 4000'
+							)
+						}
+					</ControlLabel>
 				</FormGroup>
 			</React.Fragment>
 		);

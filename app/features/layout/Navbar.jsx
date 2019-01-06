@@ -61,7 +61,6 @@ class NavbarWrapper extends React.Component {
 							<MenuItem divider />
 							<MenuItem eventKey={3.1} href="/goods?type=frame">Рамки</MenuItem>
 							<MenuItem eventKey={3.2} href="/goods?type=album">Альбомы</MenuItem>
-							<MenuItem eventKey={3.3}>Диски</MenuItem>
 							<MenuItem eventKey={3.3} href="/goods?type=headphone">Наушники</MenuItem>
 							<MenuItem eventKey={3.3} href="/goods?type=mouse">Мышки</MenuItem>
 						</NavDropdown>

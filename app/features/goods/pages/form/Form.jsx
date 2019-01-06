@@ -2,8 +2,12 @@ const _ = require('underscore');
 const React = require('react');
 const axios = require('axios');
 const PropTypes = require('prop-types');
-const {Button, Form, FormGroup, Label, FormText, Input} = require('reactstrap');
-const {FormControl} = require('react-bootstrap');
+const {
+	Button, Form, FormGroup, FormControl, ControlLabel
+} = require('react-bootstrap');
+const {
+	Label
+} = require('reactstrap');
 const {withFormik} = require('formik');
 const yup = require('app/utils/yup');
 const {uploadImage} = require('app/utils/uploads');
@@ -20,6 +24,7 @@ const formsHash = {
 };
 
 class GoodForm extends React.Component {
+
 	static propTypes = {
 		errors: PropTypes.any.isRequired,
 		handleChange: PropTypes.func.isRequired,
@@ -52,7 +57,6 @@ class GoodForm extends React.Component {
 	render() {
 		const {values, handleChange, errors} = this.props;
 		const FormComponent = formsHash[values.type];
-
 		return (
 			<div>
 				<div
@@ -72,36 +76,37 @@ class GoodForm extends React.Component {
 						paddingTop: 0
 					}}
 				>
-					<FormGroup error={errors.image}>
+					<FormGroup validationState={errors.image ? 'error' : 'success'}>
 						<Label for="exampleFile">Выберите файл</Label>
-						<Input type="file" name="image" onChange={this.onImageChange} />
-						<FormText color="muted">
-							Если изображение выбрано, высветится его название.
-						</FormText>
+						<FormControl type="file" name="image" onChange={this.onImageChange} />
+						<ControlLabel
+							style={{
+								textAlign: 'left'
+							}}
+						>
+							{errors.image && 'Выберите изображение'}
+						</ControlLabel>
 					</FormGroup>
-					<FormGroup error={errors.name}>
+					<FormGroup validationState={errors.name ? 'error' : 'success'}>
 						<Label for="exampleFile">Название товара</Label>
-						<Input
-							bsSize="lg"
+						<FormControl
 							name="name"
 							type="text"
 							placeholder="Название товара"
 							value={values.name}
 							onChange={handleChange}
 						/>
+						<FormControl.Feedback />
+						<ControlLabel
+							style={{
+								textAlign: 'left'
+							}}
+						>
+							{errors.name && 'Введите название товара'}
+						</ControlLabel>
 					</FormGroup>
-					<FormGroup error={errors.description}>
-						<Label>Описание товара</Label>
-						<Input
-							bsSize="lg"
-							name="description"
-							type="text"
-							placeholder="Описание товара"
-							value={values.description}
-							onChange={handleChange}
-						/>
-					</FormGroup>
-					<FormGroup error={errors.type}>
+
+					<FormGroup validationState={errors.type ? 'error' : 'success'}>
 						<Label>Тип товара</Label>
 						<FormControl
 							componentClass="select"
@@ -163,10 +168,10 @@ module.exports = withFormik({
 		image: good.image || '',
 		entity: good[good.type] || {}
 	}),
-
 	validationSchema: yup.object({
 		name: yup.string().required(),
 		description: yup.string(),
+		image: yup.string().required(),
 		type: yup.mixed().oneOf([
 			'frame',
 			'headphone',
@@ -176,9 +181,31 @@ module.exports = withFormik({
 			'cord',
 			'disk'
 		]).required(),
-		entity: yup.object().required()
+		entity: yup.lazy((values) => {
+			switch (values.typeSheet === undefined) {
+				case true:
+					switch (values.spareCushions === undefined) {
+						case true:
+							switch (values.cord === undefined) {
+								case true:
+									return yup.frame();
+								case false:
+									return yup.mouse();
+								default:
+									return yup.object();
+							}
+						case false:
+							return yup.headphone();
+						default:
+							return yup.object();
+					}
+				case false:
+					return yup.album();
+				default:
+					return yup.object();
+			}
+		})
 	}),
-
 	handleSubmit: (values, {props}) => {
 		const good = _(values).pick('_id', 'name', 'description', 'image', 'type');
 		good[good.type] = values.entity;

@@ -29,18 +29,7 @@ exports.album = () => yup.object({
 });
 
 exports.mouse = () => yup.object({
-	cord: yup.boolean(),
+	cord: yup.boolean().required(),
 	color: yup.string(),
 	manufacturer: yup.string()
 });
-// spareCushions: yup.boolean(),
-// microphon: yup.boolean(),
-// color: yup.string(),
-// manufacturer: yup.string(),
-// cord: yup.boolean(),
-// sensitivity: yup.number().integer().min(80).max(300),
-// model: yup.string(),
-// length: yup.number().integer().min(1).max(100),
-// entrance: yup.string(),
-// output: yup.string(),
-// typeRecord: yup.string()

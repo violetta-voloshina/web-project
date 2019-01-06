@@ -1,7 +1,13 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Input, FormGroup, Label} = require('reactstrap');
-
+const yup = require('app/utils/yup');
+const {withFormik} = require('formik');
+const {
+	Input, Label
+} = require('reactstrap');
+const {
+	FormGroup, FormControl, ControlLabel
+} = require('react-bootstrap');
 class FrameForm extends React.Component {
 	static propTypes = {
 		errors: PropTypes.any,
@@ -10,8 +16,22 @@ class FrameForm extends React.Component {
 	}
 
 	static defaultProps = {
-		values: {},
-		errors: {}
+		values: {
+			size:
+			{
+				height: 0,
+				width: 0
+			},
+			material: ''
+		},
+		errors: {
+			size:
+			{
+				height: '',
+				width: ''
+			},
+			material: ''
+		}
 	}
 
 	onWidthChange = ({target}) => {
@@ -35,13 +55,11 @@ class FrameForm extends React.Component {
 	render() {
 		const {values, errors} = this.props;
 		const {size, material} = values;
-
 		return (
 			<React.Fragment>
-				<FormGroup error={errors.size && errors.size.height}>
+				<FormGroup validationState={errors.size && errors.size.height ? 'error' : 'success'}>
 					<Label>Высота рамки</Label>
-					<Input
-						bsSize="lg"
+					<FormControl
 						name="height"
 						type="number"
 						max={60}
@@ -51,12 +69,24 @@ class FrameForm extends React.Component {
 						value={size && size.height || ''}
 						onChange={this.onHeightChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.size && errors.size.height &&
+							(errors.size.height === 'entity.size.height is a required field' ?
+								'Введите высоту рамки' :
+								'Введите значение от 1 до 60'
+							)
+						}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup error={errors.size && errors.size.width}>
+				<FormGroup validationState={errors.size && errors.size.width ? 'error' : 'success'}>
 					<Label>Ширина рамки</Label>
-					<Input
-						bsSize="lg"
+					<FormControl
 						name="width"
 						type="number"
 						max={60}
@@ -66,18 +96,38 @@ class FrameForm extends React.Component {
 						value={size && size.width || ''}
 						onChange={this.onWidthChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.size && errors.size.width &&
+							(errors.size.width === 'entity.size.width is a required field' ?
+								'Введите ширину рамки' :
+								'Введите значение от 1 до 60'
+							)
+						}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup error={errors.material}>
+				<FormGroup validationState={errors.material ? 'error' : 'success'}>
 					<Label>Тип материала</Label>
-					<Input
-						bsSize="lg"
+					<FormControl
 						name="material"
 						type="text"
 						placeholder="Тип материала"
 						value={material || ''}
 						onChange={this.onMaterialChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.material && 'Введите тип материала'}
+					</ControlLabel>
 				</FormGroup>
 			</React.Fragment>
 		);

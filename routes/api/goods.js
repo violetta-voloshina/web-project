@@ -11,7 +11,7 @@ module.exports = (app) => {
 			},
 			limit: {
 				type: 'number',
-				default: 1,
+				default: 20,
 				min: 1,
 				max: 20
 			},

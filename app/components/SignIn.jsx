@@ -4,11 +4,10 @@ const PropTypes = require('prop-types');
 const {withFormik} = require('formik');
 const yup = require('app/utils/yup');
 const {
-	Button,Pane, Form, Tab, Formsy, FormGroup, ControlLabel, TextInput
+	Button, Form, FormGroup, Col, FormControl, ControlLabel
 } = require('react-bootstrap');
 
 function SignInForm({values, handleChange, errors, handleSubmit}) {
-	console.log(errors);
 	return (
 		<div>
 			<div
@@ -21,26 +20,105 @@ function SignInForm({values, handleChange, errors, handleSubmit}) {
 			>
 				<h2>Вход в систему</h2>
 			</div>
-				<Tab.Pane eventKey="email">
-					<Formsy.Form onValidSubmit={this.handleLogin} onValid={this.enableButton} onInvalid={this.disableButton}>
+			<Form
+				horizontal
+				style={{
+					paddingRight: 80,
+					paddingLeft: 80,
+					paddingTop: 0
+				}}
+			>
+				<FormGroup>
+					<Col componentClass={ControlLabel} sm={12}>
+						<div
+							style={{
+								textAlign: 'center',
+								color: 'red'
+							}}
+						>
+							{errors.auth}
+						</div>
+					</Col>
+				</FormGroup>
 
-						<FormGroup>
-							<ControlLabel>Email</ControlLabel>
-								<TextInput name="email" type="text" validations={{isGoogleEmail: validations.isGoogleEmail}} validationErrors={{isGoogleEmail: 'Only Gmail boxes are accepted'}} required/>
-						</FormGroup>
+				<FormGroup validationState={errors.email ? 'error' : 'success'}>
+					<Col componentClass={ControlLabel} sm={2}>
+						e-mail
+					</Col>
+					<Col sm={10}>
+						<FormControl
+							type="email"
+							name="email"
+							placeholder="example@mail.ru"
+							value={values.email}
+							onChange={handleChange}
+						/>
+						<FormControl.Feedback />
+						<ControlLabel
+							style={{
+								textAlign: 'left'
+							}}
+						>
+							{errors.email &&
+								(errors.email === 'email is a required field' ?
+									'Введите email' :
+									'Введен некорректный e-mail. Пожалуйста вводите e-mail в формате: example@mail.ru'
+								)
+							}
+						</ControlLabel>
+					</Col>
+				</FormGroup>
 
-						<FormGroup>
-							<ControlLabel>Password</ControlLabel>
-								<TextInput name="loginPassword" type="password" validations={{strongPassword: validations.strongPassword}} validationErrors={{strongPassword: "Enter a strong password! At least 6 symbols"}} required/>
-						</FormGroup>
+				<FormGroup validationState={errors.password ? 'error' : 'success'}>
+					<Col componentClass={ControlLabel} sm={2}>
+						Пароль
+					</Col>
+					<Col sm={10}>
+						<FormControl
+							type="password"
+							name="password"
+							placeholder="Password"
+							value={values.password}
+							onChange={handleChange}
+						/>
+						<FormControl.Feedback />
+						<ControlLabel
+							style={{
+								textAlign: 'left'
+							}}
+						>
+							{errors.password && 'Введите пароль'}
+						</ControlLabel>
+					</Col>
+				</FormGroup>
 
-						<FormGroup>
-							<Button type="submit" bsStyle="primary" disabled={!this.state.isButtonEnabled} block>Login</Button>
-						</FormGroup>
-
-					</Formsy.Form>
-				</Tab.Pane>
-			</div>
+				<FormGroup>
+					<Col
+						smOffset={2}
+						sm={10}
+						style={{
+							display: 'flex'
+						}}
+					>
+						<Button
+							type="submit"
+							onClick={handleSubmit}
+						>
+							Войти
+						</Button>
+						<a
+							style={{
+								margin: 'auto',
+								marginLeft: '10px'
+							}}
+							href="/signup"
+						>
+							Зарегистрироваться
+						</a>
+					</Col>
+				</FormGroup>
+			</Form>
+		</div>
 	);
 }
 

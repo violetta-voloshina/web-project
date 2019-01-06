@@ -1,8 +1,11 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Input, FormGroup, Label, FormText} = require('reactstrap');
-const {Checkbox} = require('react-bootstrap');
-
+const {
+	Label
+} = require('reactstrap');
+const {
+	FormGroup, FormControl, ControlLabel, Checkbox
+} = require('react-bootstrap');
 class HeadphoneForm extends React.Component {
 	static propTypes = {
 		errors: PropTypes.any,
@@ -40,10 +43,9 @@ class HeadphoneForm extends React.Component {
 
 	render() {
 		const {values, errors} = this.props;
-
 		return (
 			<React.Fragment>
-				<FormGroup error={errors.spareCushions}>
+				<FormGroup validationState={errors.spareCushions ? 'error' : 'success'}>
 					<Label>Наличие доп. амбюшур</Label>
 					<Checkbox
 						checked={values.spareCushions || ''}
@@ -52,8 +54,15 @@ class HeadphoneForm extends React.Component {
 					>
 						Наличие доп. амбюшур
 					</Checkbox>
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.spareCushions && 'Выберите есть ли доп. амбюшуры'}
+					</ControlLabel>
 				</FormGroup>
-				<FormGroup error={errors.microphone}>
+				<FormGroup validationState={errors.microphone ? 'error' : 'success'}>
 					<Label>Наличие микрофона</Label>
 					<Checkbox
 						checked={values.microphone || ''}
@@ -62,10 +71,17 @@ class HeadphoneForm extends React.Component {
 					>
 						Наличие микрофона
 					</Checkbox>
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.microphone && 'Выберите есть ли микрофон'}
+					</ControlLabel>
 				</FormGroup>
-				<FormGroup error={errors.color}>
+				<FormGroup validationState={errors.color ? 'error' : 'success'}>
 					<Label>Основной цвет</Label>
-					<Input
+					<FormControl
 						type="text"
 						name="color"
 						placeholder="Основной цвет"
@@ -74,9 +90,9 @@ class HeadphoneForm extends React.Component {
 					/>
 				</FormGroup>
 
-				<FormGroup error={errors.sensitivity}>
+				<FormGroup validationState={errors.sensitivity ? 'error' : 'success'}>
 					<Label>Чуствительность</Label>
-					<Input
+					<FormControl
 						type="number"
 						name="sensitivity"
 						max={300}
@@ -84,14 +100,19 @@ class HeadphoneForm extends React.Component {
 						value={values.sensitivity || ''}
 						onChange={this.onSensitivityChange}
 					/>
-					<FormText color="muted">
-						Значение должно быть больше 80 и меньше 300
-					</FormText>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.sensitivity && 'Введите значение от 80 до 300'}
+					</ControlLabel>
 				</FormGroup>
 
-				<FormGroup label="Производитель" error={errors.manufacturer}>
+				<FormGroup validationState={errors.manufacturer ? 'error' : 'success'}>
 					<Label>Производитель</Label>
-					<Input
+					<FormControl
 						type="text"
 						name="manufacturer"
 						placeholder="Производитель"
