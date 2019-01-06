@@ -71,6 +71,10 @@ module.exports = (app) => {
 			type: {
 				enum: ['frame', 'album', 'headphone', 'batterie', 'cord', 'mouse', 'disk']
 			},
+			price: {
+				type: 'number',
+				required: true
+			},
 			frame: schemas.frame,
 			album: schemas.album,
 			headphone: schemas.headphone,
@@ -103,6 +107,10 @@ module.exports = (app) => {
 			image: schemas.image,
 			type: {
 				enum: ['frame', 'album', 'headphone', 'batterie', 'cord', 'mouse', 'disk']
+			},
+			price: {
+				type: 'number',
+				required: true
 			},
 			frame: schemas.frame,
 			album: schemas.album,

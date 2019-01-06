@@ -6,19 +6,22 @@ const Frame = require('./Frame');
 const Headphone = require('./Headphone');
 const Album = require('./Album');
 const Mouse = require('./Mouse');
+const Disk = require('./Disk');
 
 const typesHash = {
 	frame: 'Рамка',
 	headphone: 'Наушники',
 	album: 'Альбом',
-	mouse: 'Мышка'
+	mouse: 'Мышка',
+	disk: 'Диск'
 };
 
 const componentsHash = {
 	frame: Frame,
 	headphone: Headphone,
 	album: Album,
-	mouse: Mouse
+	mouse: Mouse,
+	disk: Disk
 };
 
 function Item({good, onDeleteClick}) {
@@ -50,8 +53,9 @@ function Item({good, onDeleteClick}) {
 				<h2>{typesHash[good.type]}</h2>
 				<h4>{good.name}</h4>
 				<CardText>{good.description}</CardText>
+				<Component entity={good[good.type]} />
+				<h4> Цена - {good.price} руб.</h4>
 			</CardBody>
-			<Component entity={good[good.type]} />
 			{isAdmin && (
 				<div
 					style={{
@@ -82,6 +86,7 @@ Item.propTypes = {
 		}).isRequired,
 		name: PropTypes.string.isRequired,
 		description: PropTypes.string,
+		price: PropTypes.number.isRequired,
 		type: PropTypes.oneOf([
 			'frame', 'album', 'headphone',
 			'batterie', 'cord', 'mouse', 'disk'

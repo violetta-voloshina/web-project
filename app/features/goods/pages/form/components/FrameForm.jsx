@@ -1,9 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const yup = require('app/utils/yup');
-const {withFormik} = require('formik');
 const {
-	Input, Label
+	Label
 } = require('reactstrap');
 const {
 	FormGroup, FormControl, ControlLabel

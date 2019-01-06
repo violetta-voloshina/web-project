@@ -15,12 +15,14 @@ const FrameForm = require('./components/FrameForm');
 const AlbumForm = require('./components/AlbumForm');
 const HeadphoneForm = require('./components/HeadphoneForm');
 const MouseForm = require('./components/MouseForm');
+const DiskForm = require('./components/DiskForm');
 
 const formsHash = {
 	album: AlbumForm,
 	frame: FrameForm,
 	headphone: HeadphoneForm,
-	mouse: MouseForm
+	mouse: MouseForm,
+	disk: DiskForm
 };
 
 class GoodForm extends React.Component {
@@ -118,6 +120,7 @@ class GoodForm extends React.Component {
 							<option value="album">Альбом</option>
 							<option value='headphone'>Наушники</option>
 							<option value='mouse'>Мышь</option>
+							<option value='disk'>Диск</option>
 						</FormControl>
 					</FormGroup>
 					<FormComponent
@@ -125,6 +128,32 @@ class GoodForm extends React.Component {
 						onChange={this.onGoodChange}
 						errors={errors.entity}
 					/>
+					<FormGroup validationState={errors.price ? 'error' : 'success'}>
+						<Label>Цена на товар</Label>
+						<FormControl
+							name="price"
+							type="number"
+							max={20000}
+							min={2}
+							placeholder="Цена на товар"
+							step="1"
+							value={values.price}
+							onChange={handleChange}
+						/>
+						<FormControl.Feedback />
+						<ControlLabel
+							style={{
+								textAlign: 'left'
+							}}
+						>
+							{errors.price &&
+									(errors.price === 'price is a required field' ?
+										'Введите цену товара' :
+										'Введите значение от 2 до 20000'
+									)
+							}
+						</ControlLabel>
+					</FormGroup>
 					<FormGroup
 						style={{
 							display: 'flex',
@@ -166,12 +195,14 @@ module.exports = withFormik({
 		description: good.description || '',
 		type: good.type || 'frame',
 		image: good.image || '',
+		price: good.price || 0,
 		entity: good[good.type] || {}
 	}),
 	validationSchema: yup.object({
 		name: yup.string().required(),
 		description: yup.string(),
 		image: yup.string().required(),
+		price: yup.number().integer().min(2).max(20000).required(),
 		type: yup.mixed().oneOf([
 			'frame',
 			'headphone',
@@ -188,7 +219,14 @@ module.exports = withFormik({
 						case true:
 							switch (values.cord === undefined) {
 								case true:
-									return yup.frame();
+									switch (values.typeRecord === undefined) {
+										case true:
+											return yup.frame();
+										case false:
+											return yup.disk();
+										default:
+											return yup.object();
+									}
 								case false:
 									return yup.mouse();
 								default:
@@ -207,7 +245,7 @@ module.exports = withFormik({
 		})
 	}),
 	handleSubmit: (values, {props}) => {
-		const good = _(values).pick('_id', 'name', 'description', 'image', 'type');
+		const good = _(values).pick('_id', 'name', 'description', 'image', 'type', 'price');
 		good[good.type] = values.entity;
 		uploadImage(good.image).then(() => {
 			axios[

@@ -6,7 +6,10 @@ function Mouse({entity}) {
 	return (
 		<div
 			style={{
-				padding: 20
+				paddingRight: 5,
+				paddingLeft: 20,
+				paddingBlockEnd: 10,
+				textAlign: 'left'
 			}}
 		>
 			<div>Тип подключения: {Cord}</div>

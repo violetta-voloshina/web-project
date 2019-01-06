@@ -1,7 +1,12 @@
 const React = require('react');
 const axios = require('axios');
 const PropTypes = require('prop-types');
-const {Button, Form, FormGroup, Label, Input} = require('reactstrap');
+const {
+	Button, Form, FormGroup, FormControl, ControlLabel
+} = require('react-bootstrap');
+const {
+	Label
+} = require('reactstrap');
 const {withFormik} = require('formik');
 const yup = require('yup');
 
@@ -25,21 +30,27 @@ function ServiceForm({values, handleChange, errors, ...props}) {
 					paddingTop: 0
 				}}
 			>
-				<FormGroup>
+				<FormGroup validationState={errors.name ? 'error' : 'success'}>
 					<Label for="exampleFile">Название услуги</Label>
-					<Input
-						bsSize="lg"
+					<FormControl
 						name="name"
 						type="text"
 						placeholder="Название услуги"
 						value={values.name}
 						onChange={handleChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.name && 'Введите название услуги'}
+					</ControlLabel>
 				</FormGroup>
-				<FormGroup error={errors.description}>
+				<FormGroup validationState={errors.description ? 'error' : 'success'}>
 					<Label>Описание услуги</Label>
-					<Input
-						bsSize="lg"
+					<FormControl
 						name="description"
 						type="text"
 						placeholder="Описание услуги"
@@ -47,10 +58,9 @@ function ServiceForm({values, handleChange, errors, ...props}) {
 						onChange={handleChange}
 					/>
 				</FormGroup>
-				<FormGroup error={errors.price}>
+				<FormGroup validationState={errors.price ? 'error' : 'success'}>
 					<Label>Цена на услугу</Label>
-					<Input
-						bsSize="lg"
+					<FormControl
 						name="price"
 						type="number"
 						max={20000}
@@ -60,6 +70,19 @@ function ServiceForm({values, handleChange, errors, ...props}) {
 						value={values.price}
 						onChange={handleChange}
 					/>
+					<FormControl.Feedback />
+					<ControlLabel
+						style={{
+							textAlign: 'left'
+						}}
+					>
+						{errors.price &&
+								(errors.price === 'price is a required field' ?
+									'Введите цену услуги' :
+									'Введите значение от 2 до 20000'
+								)
+						}
+					</ControlLabel>
 				</FormGroup>
 				<FormGroup
 					style={{

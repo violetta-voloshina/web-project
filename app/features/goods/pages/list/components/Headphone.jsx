@@ -8,7 +8,10 @@ function Headphone({entity}) {
 	return (
 		<div
 			style={{
-				padding: 20
+				paddingRight: 5,
+				paddingLeft: 20,
+				paddingBlockEnd: 10,
+				textAlign: 'left'
 			}}
 		>
 			<div>Микрофон: {Microphone}</div>

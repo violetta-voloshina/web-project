@@ -11,7 +11,10 @@ function Frame({entity}) {
 		// />
 		<div
 			style={{
-				padding: 20
+				paddingRight: 5,
+				paddingLeft: 20,
+				paddingBlockEnd: 10,
+				textAlign: 'left'
 			}}
 		>
 			<div>Размер: {entity.size.width} x {entity.size.height}</div>

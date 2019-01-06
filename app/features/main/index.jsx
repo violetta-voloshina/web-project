@@ -20,7 +20,7 @@ class Main extends React.Component {
 		}));
 
 		await Promise.all(
-			_(['frame', 'headphone', 'album', 'mouse']).map(async (type) => {
+			_(['frame', 'headphone', 'album', 'mouse', 'disk']).map(async (type) => {
 				const {data} = await axios.get(
 					'/api/goods',
 					{params: {type, limit: 1}}
@@ -39,7 +39,7 @@ class Main extends React.Component {
 			return 'Загрузка';
 		}
 
-		const {frame, album, headphone, mouse} = this.state;
+		const {frame, album, headphone, mouse, disk} = this.state;
 
 		return (
 			<div
@@ -173,6 +173,24 @@ class Main extends React.Component {
 					</Col>
 					<Col sm={4}>
 						<Image src={`/uploads/${mouse.image.name}`} thumbnail />
+					</Col>
+				</Row>
+				<Row className="show-grid">
+					<Col sm={4}>
+						<Image src={`/uploads/${disk.image.name}`} thumbnail />
+					</Col>
+					<Col sm={8}>
+						<Jumbotron
+							style={{
+								margin: 20,
+								padding: 20,
+								textAlign: 'center'
+							}}
+						>
+							<h3 className="display-3">В наличии имеютя диски:  </h3>
+							<h4 className="display-3">CD, DVD. </h4>
+							<Button href="/goods?type=disk">Перейти к товарам</Button>
+						</Jumbotron>
 					</Col>
 				</Row>
 			</div>

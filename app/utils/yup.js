@@ -33,3 +33,7 @@ exports.mouse = () => yup.object({
 	color: yup.string(),
 	manufacturer: yup.string()
 });
+
+exports.disk = () => yup.object({
+	typeRecord: yup.string().required()
+});
