@@ -72,7 +72,9 @@ class Main extends React.Component {
 								textAlign: 'center'
 							}}
 						>
-							<h3 className="display-3">В наличии имеется большой выбор рамочек стандартных размеров: </h3>
+							<h3 className="display-3">
+								В наличии имеется большой выбор рамочек стандартных размеров:
+							</h3>
 							<Table striped bordered condensed hover>
 								<thead>
 									<tr>
@@ -167,7 +169,9 @@ class Main extends React.Component {
 						>
 							<h3 className="display-3">В наличии имеютя мышки:  </h3>
 							<h4 className="display-3">проводные,безпроводные. </h4>
-							<h4 className="display-3">Также вы можете приобрести у нас коврик для мышки и батарейки.</h4>
+							<h4 className="display-3">
+								Также вы можете приобрести у нас коврик для мышки и батарейки.
+							</h4>
 							<Button href="/goods?type=mouse">Перейти к товарам</Button>
 						</Jumbotron>
 					</Col>
